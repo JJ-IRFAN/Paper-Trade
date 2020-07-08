@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<style>
+         body{
+                background-color: #000000;
+			 }
+         p{
+            color:#ffffff;
+            font-style: cursive;
+            font-size:20px;
+
+          }
+          label{
+          	color:#ffffff;
+          }
+          div{
+            text-align: center;
+          }
+          .input{
+            width: 380px;
+            height: 20px
+          }
+          h1{
+            font-style: oblique;
+            font size: 25;
+            background-color: gray;
+            color:white;
+            text-align: center;
+          }
+          button {
+  background-color: gray;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+    </style>
+    <body>
+    	<form action="" name="form1">
+    	<div><img src="logo.png" height="105" width="350"></div>
+    	<h1> Profit & Loss calculator</h1>
+    	<div><label for="long">Buy</label><input type="radio" value="buy" name="paper" id="long">
+    		<label for="short"> Sell</label><input type="radio" name="paper" id="short" value="sell"></div>
+    		<p align="center">Entry price:</p>
+    		<div><input class="input" id="entry"></div>
+    		<p align="center">Exit price:</p>
+    		<div><input class="input" id="exit"></div>
+    		<p align="center">Investment</p>
+    		<div><input class="input" id="inv"></div>
+    		<p align="center">Leverage</p>
+    		<div><input class="input" id="lev"></div>
+    		<br>
+    		<div><button onclick="check();"> Calculate </button><button type="reset">Reset</button></div></form>
+    	</body>
+    	<script>
+    		function check()
+    		{
+    			if(document.getElementById("long").checked){
+    				long();
+    			}
+    			else if(document.getElementById("short").checked){
+    				short();
+    			}
+    			else{
+    				alert("Please select a checkbox");
+    			}
+    		}
+    		function long()
+    		{
+    			var entry,exit,lev,inv,quantit,quantity,profit,loss,profit2,loss2;
+    			entry=Number(document.getElementById("entry").value);
+    			exit=Number(document.getElementById("exit").value);
+    			inv=Number(document.getElementById("inv").value);
+    			lev=Number(document.getElementById("lev").value);
+    			quantit=(inv*lev)/entry;
+    			quantity=Math.floor(quantit);
+    			if(exit>entry){
+    			profit=exit-entry;
+    			loss=0;
+    			}
+    			if(entry>exit){
+    			loss=exit-entry;
+    			profit=0;
+    			}
+    			loss2=Math.abs(loss*quantity);
+    			profit2=profit*quantity;
+    			if(profit2==0){
+ 					capital=inv-loss2;
+ 					encourage="This loss could be another trade's profit!"
+ 				}
+ 				if(loss2==0){
+ 					capital=inv+profit2;
+ 					encourage="Nice trade, Keep rocking!!"
+ 				}
+ 				alert("Buy @ "+entry+"\nSell @ "+exit+"\nInvestment = "+inv+"\nLeverage = "+lev+"\nQuantity = "+quantity
+ 					+"\nProfit = "+profit2+"\nLoss = "+loss2+"\nCapital = "+capital+"\n"+encourage);
+    		}
+    		function short()
+    		{
+    			var entry,exit,lev,inv,quantit,quantity,profit,loss,profit2,loss2,capital,encourage;
+    			entry=Number(document.getElementById("entry").value);
+    			exit=Number(document.getElementById("exit").value);
+    			inv=Number(document.getElementById("inv").value);
+    			lev=Number(document.getElementById("lev").value);
+    			quantit=(inv*lev)/entry;
+    			quantity=Math.floor(quantit);
+    			if(entry>exit){
+    				profit=entry-exit;
+    				loss=0;
+    			}
+    			if(exit>entry){
+    				loss=entry-exit;
+    				profit=0;
+    			}
+    			loss2=Math.abs(loss*quantity);
+    			profit2=profit*quantity;
+ 				if(profit==0){
+ 					capital=inv-loss2;
+ 					encourage="This loss could be another trade's profit!"
+ 				}
+ 				if(loss==0){
+ 					capital=inv+profit2;
+ 					encourage="Nice trade, Keep rocking!!"
+ 				}
+ 				alert("Buy @ "+entry+"\nSell @ "+exit+"\nInvestment = "+inv+"\nLeverage = "+lev+"\nQuantity = "+quantity
+ 					+"\nProfit = "+profit2+"\nLoss = "+loss2+"\nCapital = "+capital+"\n"+encourage);
+    		}
+    	</script></html>
